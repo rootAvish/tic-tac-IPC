@@ -1,10 +1,10 @@
-all: ipc consumer
+all: program1 program2
 
-ipc: ipc.c header.c header.h
-	gcc -g ipc.c header.c -o ipc
+program1: program1.c header.c header.h
+	gcc -g program1.c header.c -o program1
 	
-consumer: consumer.c header.c header.h
-	gcc -g consumer.c header.c -o consumer
+program2: program2.c header.c header.h
+	gcc -g program2.c header.c -o program2
 	
 clean:
-	rm -f *.o a.out ipc consumer core
+	rm -f *.o a.out program1 program2 core
