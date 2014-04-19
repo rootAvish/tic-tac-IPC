@@ -8,6 +8,8 @@ int main(void)
 {
     int shmid = shmget((key_t)1234,sizeof(shared),IPC_CREAT  | 0666);
     int i=0,j=0;
+    int posx,posy,choice;
+    
     if ( shmid == -1 )
     {
         fprintf(stderr,"shared memory could not be created!,program will now abort\n");
@@ -21,15 +23,25 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     
+    clear();
     while ( 1 )
     {
-        while ( data->turn == 1 )
-        /*{
-          sleep(10)  ;
-          printf("turn is : %d\n",data->turn);
-        }*/;
-        printf("%c ",data->grid[0][0]);
+        while ( data->turn == 1 )   {
+            printf("Player 1 is moving,please wait.......\n");
+            sleep(2);
+        }
+            
+        display(data);
+            
+        printf("Choose where to place mark : ");
+        scanf("%d",&choice);
         
+        posx = --choice/3;
+		posy = choice%3;
+        
+        data->grid[posx][posy] = 'o' ;
+        
+        display(data);
         data->turn = 1;
     }
     

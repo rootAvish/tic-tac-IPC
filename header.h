@@ -11,3 +11,9 @@ typedef struct shared
 
 //function that will display the board which we have stored in shared memory
 void display(shared* data);
+
+//function to initialize the grid with all blank spaces
+void initialize(shared* data);
+
+//function to clear the screen,yes i know how to do that
+void clear();
