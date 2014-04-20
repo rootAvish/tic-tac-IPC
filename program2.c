@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    int shmid = shmget((key_t)1234,sizeof(shared),IPC_CREAT  | 0666);
+    int shmid = shmget((key_t)1234,sizeof(shared),IPC_CREAT | 0666);
     int i=0,j=0;
     int posx,posy,choice,legal;
     

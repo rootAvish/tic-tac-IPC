@@ -31,12 +31,15 @@ int main(void)
     clear();
     initialize(data);
      
-    if ( rand() % 2 == 0 )
+    if ( rand() % 2 == 0 )  {
         data->turn=1;
-    else
+        printf("Player1 goes first,sign for player 1 is 'x'\n");
+    }
+    else    {
+    
         data->turn=2;
-        
-    data->turn = 1;
+        printf("player 2 goes first,sign for player 2 is 'o'\n");
+    }
     
     while ( 1 )
     {
