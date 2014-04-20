@@ -13,13 +13,14 @@ void display(shared * data)
 
 void initialize(shared* data)
 {
-    int i=0,j=0;
+    int i=0,j=0,c=0;
     
     for ( i=0 ; i < 3 ; i++ )
     {
         for ( j=0 ; j < 3 ; j++ )
         {
-            data->grid[i][j] = ' ';
+            data->grid[i][j] = 49+c;
+	    c++;
         }
     }
 	data->count = 0;

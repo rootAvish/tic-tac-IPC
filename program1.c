@@ -62,7 +62,7 @@ int main(void)
 
 					posx = --choice / 3;
 					posy = choice % 3;
-				} while (choice<0 || choice>9 || data->grid[posx][posy] != ' ');
+				} while (choice<0 || choice>9 || data->grid[posx][posy] > '9');
 				data->grid[posx][posy] = 'x';
 				//player 1 has moved
 
@@ -73,7 +73,8 @@ int main(void)
 		}
 		else
 		{
-			printf("\n Player 1 is the Winner of the game!");
+			printf("\n Player %d is the Winner of the game!",((data->count)-1)%2 + 1);
+			data->turn = 2;
 			break;
 		}
 	}
