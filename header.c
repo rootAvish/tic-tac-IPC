@@ -22,8 +22,18 @@ void initialize(shared* data)
             data->grid[i][j] = ' ';
         }
     }
+	data->count = 0;
 }
-
+int check(shared* data)
+{
+	int i;;
+	if (data->grid[0][0] == data->grid[1][1] && data->grid[0][0] == data->grid[2][2] || (data->grid[0][2] == data->grid[1][1] && data->grid[0][2] == data->grid[2][0]))
+		return 1;
+	for (i = 0; i < 3; i++)
+		if (data->grid[i][0] == data->grid[i][1] && data->grid[i][0] == data->grid[i][2] || (data->grid[0][i] == data->grid[1][i] && data->grid[0][i] == data->grid[2][i]))
+			return 1;
+	return 0;
+}
 void clear()
 {
     printf("\e[1;1H\e[2J");
