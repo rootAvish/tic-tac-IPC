@@ -19,8 +19,7 @@ void initialize(shared* data)
     {
         for ( j=0 ; j < 3 ; j++ )
         {
-            data->grid[i][j] = 49+c;
-	    c++;
+            data->grid[i][j] = ' ';
         }
     }
 	data->count = 0;
