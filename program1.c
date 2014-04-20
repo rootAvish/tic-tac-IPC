@@ -13,7 +13,7 @@ int main(void)
 {
     int shmid = shmget((key_t)1234,sizeof(shared),IPC_CREAT | 0666);
     int i=0,j=0;
-    int posx,posy,choice,legal;
+    int posx,posy,choice;
  
     srand(time(NULL));   
     if ( shmid == -1 )
@@ -41,39 +41,46 @@ int main(void)
         printf("player 2 goes first,sign for player 2 is 'o'\n");
     }
     
-    while ( 1 )
-    {
-        while ( data->turn == 2 )   {
-            printf("Player 2 is moving,plese wait.....\n");
-            sleep(2);
-        }
-        
-        display(data);
-        legal=0;
-        //player1 moves    
-        while ( !legal )
-        {
-            printf("Choose where to place mark : ");
-            scanf("%d",&choice);
-            
-            posx = --choice/3;
-		    posy = choice%3;
-            
-            if ( data->grid[posx][posy] != 'x' && 
-                 data->grid[posx][posy] != 'o' )
-            {
-                data->grid[posx][posy] = 'x' ;
-                legal=1;
-            }
-            else
-                printf("Wrong move,please retry!\n");
-         }
-        //player 1 has moved
-        
-        display(data);
-        data->turn = 2; 
-    }
-    
+	while (1)
+	{
+		while (data->turn == 2)   {
+			printf("Player 2 is moving,plese wait.....\n");
+			sleep(2);
+		}
+		display(data);
+		if (!check(data))
+		{
+			//player1 moves  
+			if (data->count >= 8)
+			{
+				printf("\n Its a Tie !!\n");
+				break;
+			}
+			else
+			{
+				do
+				{
+					printf("Choose where to place mark : ");
+					scanf("%d", &choice);
+
+					posx = --choice / 3;
+					posy = choice % 3;
+				} while (choice<0 || choice>9 || data->grid[posx][posy] > '9');
+				data->grid[posx][posy] = 'x';
+				//player 1 has moved
+
+				display(data);
+				data->count = data->count + 1;
+				data->turn = 2;
+			}
+		}
+		else
+		{
+			printf("\n Player %d is the Winner of the game!",((data->count)-1)%2 + 1);
+			data->turn = 2;
+			break;
+		}
+	}
      //detaching the shared memory
     if ( shmdt(data) != 0)
     {
