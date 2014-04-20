@@ -13,7 +13,7 @@ int main(void)
 {
     int shmid = shmget((key_t)1234,sizeof(shared),IPC_CREAT | 0666);
     int i=0,j=0;
-    int posx,posy,choice;
+    int posx,posy,choice,legal;
  
     srand(time(NULL));   
     if ( shmid == -1 )
@@ -46,14 +46,25 @@ int main(void)
         }
         
         display(data);
+        legal=0;
         //player1 moves    
-        printf("Choose where to place mark : ");
-        scanf("%d",&choice);
-        
-        posx = --choice/3;
-		posy = choice%3;
-        
-        data->grid[posx][posy] = 'x' ;
+        while ( !legal )
+        {
+            printf("Choose where to place mark : ");
+            scanf("%d",&choice);
+            
+            posx = --choice/3;
+		    posy = choice%3;
+            
+            if ( data->grid[posx][posy] != 'x' && 
+                 data->grid[posx][posy] != 'o' )
+            {
+                data->grid[posx][posy] = 'x' ;
+                legal=1;
+            }
+            else
+                printf("Wrong move,please retry!\n");
+         }
         //player 1 has moved
         
         display(data);
